@@ -5,9 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Eat-Da-Burger!</title>
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/burger_style.css">
+    <!-- Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     {{{ body }}}
+
+    <script>
+  $("#devour-burger").on("click", function(event) {
+		event.preventDefault(); 
+		var id = $(this).data("id"); 
+		var devouredState = $(this).data("devour"); 
+
+		var devoured = {
+			devoured: true
+		}; 
+
+		//send the PUT request 
+		$.ajax("/api/burgers/" + id, {
+			type: "PUT", 
+			data: devoured
+		}).then(
+			function() {
+				console.log("changed devoured state to ", devouredState); 
+
+				location.reload(); 
+			}
+		);
+	});
+
+	$("#button").on("click", function(event) {
+		event.preventDefault(); 
+
+		var newBurger = {
+			burger_name: $("#bn").val().trim()
+		};
+
+		console.log(newBurger);
+
+		//send the POST request
+		$.ajax("/api/burger", {
+			type: "POST", 
+			data: newBurger
+		}).then(
+			function() {
+				console.log("created new burger");
+				//reload the page to get the updated list
+				location.reload();
+			}
+		);
+	});
+</script>  
 </body>
 </html>

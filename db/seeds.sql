@@ -1,4 +1,4 @@
-INSERT INTO burgers (name)
+INSERT INTO burger_name (name)
 VALUES ("Double Quarter Pouder with Cheese"),
 ("ShackBurger"),
 ("Lounge Burger"),
